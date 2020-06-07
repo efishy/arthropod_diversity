@@ -16,9 +16,12 @@ head(data)
 
 
 ## revise dataframe for maping
-records <- data.frame(data$scientificName, data$decimalLongitude, data$decimalLatitude)
+records <- data.frame(data$scientificName, data$decimalLongitude, data$decimalLatitude) # order matters - must have long first
 names(records) <- c("Species","Longitude","Latitude")
 records = na.omit(records)
+
+      # [recommend making extra sure records limited to geographic area you're interested (eg the USA) - if 
+      # you don't and there's a mistake, you won't know until after the maps have been generated hours later]
 
 dim <- dim(records)
 Counts <- rep(1,dim[1])
@@ -30,8 +33,8 @@ data(States) # state Boundaries of the United States
 data(adworld)
 
 # US divided into cells
-KnowB(data = records, save = "CSV", minLon = -130, maxLon = -70, minLat = 25, maxLat = 50, jpg = T, xl = 6.1, xr = 6.3, pro = T, inc = F, 
-      cell = 54,  dec = ".")
+KnowB(data = records, save = "CSV", minLon = -130, maxLon = -70, minLat = 25, maxLat = 50, jpg = T, 
+      xl = 6.1, xr = 6.3, pro = T, inc = F, cell = 54,  dec = ".")
 
 # US divided into states
 KnowBPolygon(data = records, shape = States, admAreas = TRUE, shapenames = "NAME", minLon = -130,
