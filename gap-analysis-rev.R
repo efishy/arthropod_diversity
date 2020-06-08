@@ -22,6 +22,11 @@ records = na.omit(records)
 
       # [recommend making extra sure records limited to geographic area you're interested (eg the USA) - if 
       # you don't and there's a mistake, you won't know until after the maps have been generated hours later]
+# [ for example....]
+records <- subset(records, Longitude >= -130)
+records <- subset(records, Longitude <= -70)
+records <- subset(records, Latitude >= 25)
+records <- subset(records, Latitude <= 50)
 
 dim <- dim(records)
 Counts <- rep(1,dim[1])
@@ -33,8 +38,8 @@ data(States) # state Boundaries of the United States
 data(adworld)
 
 # US divided into cells
-KnowB(data = records, save = "CSV", minLon = -130, maxLon = -70, minLat = 25, maxLat = 50, jpg = T, 
-      xl = 6.1, xr = 6.3, pro = T, inc = F, cell = 54,  dec = ".")
+KnowB(data = records, save = "CSV", jpg = T, xl = 6.1, xr = 6.3, pro = T, inc = F, cell = 54,  dec = ".")   # including lat/long as 
+      # arguments in this function crashes R for me
 
 # US divided into states
 KnowBPolygon(data = records, shape = States, admAreas = TRUE, shapenames = "NAME", minLon = -130,
